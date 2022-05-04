@@ -7,10 +7,24 @@ from xlutils.copy import copy
 
 formatTime = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
 def timeDiffer(time1, time2):
+    chk_1 = False
+    chk_2 = False
+    if(time1[0:2]=="次日"):
+        chk_1 = True
+        time1=time1[2:len(time1)]
+    if(time2[0:2]=="次日"):
+        chk_2 = True
+        time2=time2[2:len(time2)]
     time1 = datetime.datetime.strptime(time1,"%H:%M")
     procTime1 = time1.hour*60 + time1.minute
     time2 = datetime.datetime.strptime(time2,"%H:%M")
     procTime2 = time2.hour*60 + time2.minute
+    
+    if(chk_1):
+        procTime1 += 60*24
+    if(chk_2):
+        procTime2 += 60*24
+    
     # print(procTime1,procTime2)
     return procTime1-procTime2
 
